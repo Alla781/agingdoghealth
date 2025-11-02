@@ -1,0 +1,27 @@
+---
+layout: layouts/base.njk
+---
+<article class="article">
+  <header>
+    <h1>{{ title }}</h1>
+    {% if excerpt %}<p class="excerpt">{{ excerpt }}</p>{% endif %}
+   <p class="meta">Updated <time datetime="{{ page.date | iso }}">{{ page.date | date }}</time></p>
+  </header>
+
+  <div class="prose">
+    {{ content | safe }}
+  </div>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": {{ title | dump }},
+    "description": {{ description | dump }},
+    "datePublished": "{{ page.date | iso }}",
+    "dateModified": "{{ page.date | iso }}",
+    "author": {"@type": "Organization", "name": {{ site.name | dump }}},
+    "publisher": {"@type": "Organization", "name": {{ site.name | dump }}}
+  }
+  </script>
+</article>
