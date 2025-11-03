@@ -1,6 +1,9 @@
 ---
 layout: layouts/base.njk
 ---
+{% set collections = collections or {} %}
+{% set collections.articles = collections.articles or [] %}
+{% set collections.dogs = collections.dogs or [] %}
 <section class="hero">
   <h1>Helping Your Best Friend Age Gracefully</h1>
   <p>Warm, expert guidance for caring owners of senior dogs. Simple tips, practical checklists, and honest advice.</p>
