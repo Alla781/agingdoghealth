@@ -17,7 +17,7 @@ layout: layouts/base.njk
   <div>
     <h2>Popular Guides</h2>
     <ul class="cards">
-      {% if collections.articles and collections.articles | length %}
+      {% if collections.articles and collections.articles | length > 0 %}
         {% for post in collections.articles | slice(0,3) %}
           {% if post.data and post.data.title %}
             <li class="card">
@@ -39,7 +39,7 @@ layout: layouts/base.njk
   <div>
     <h2>Common Senior Conditions</h2>
     <ul class="a2z">
-      {% if collections.dogs and collections.dogs | length %}
+      {% if collections.dogs and collections.dogs | length > 0 %}
         {% for dog in collections.dogs | slice(0,6) %}
           {% if dog.data and dog.data.title %}
             <li><a href="{{ dog.url }}">{{ dog.data.title }}</a></li>
