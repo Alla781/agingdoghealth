@@ -1,6 +1,9 @@
 backend:
-  name: git-gateway
-  branch: main
+  name: auth0
+domain: dev-1uqulubqjqoqred6.us.auth0app.com
+  clientId: 3Wc3HSUUhb26jUrIPzeRXET7cccMi8zm
+  login: true
+  redirectUri: https://agingdoghealth.com/admin/callback
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
