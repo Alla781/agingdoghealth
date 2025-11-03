@@ -1,14 +1,23 @@
 backend:
   name: auth0
-domain: dev-1uqulubqjqoqred6.us.auth0app.com
+  domain: dev-1uqulubqjqoqred6.us.auth0.com
   clientId: 3Wc3HSUUhb26jUrIPzeRXET7cccMi8zm
   login: true
-  redirectUri: https://agingdoghealth.com/admin/callback
+  redirectUri: https://agingdoghealth.netlify.app/admin/callback
 
-media_folder: "images/uploads"
-public_folder: "/images/uploads"
+site_url: https://agingdoghealth.netlify.app
+display_url: https://agingdoghealth.netlify.app
+logo_url: https://raw.githubusercontent.com/Alla781/agingdoghealth/main/assets/logo5.jpeg
 
-site_url: "https://www.agingdoghealth.com"
+publish_mode: editorial_workflow
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+slug:
+  encoding: "unicode"
+  clean_accents: true
+  sanitize_replacement: "-"
 
 collections:
   - name: "articles"
@@ -17,12 +26,53 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Layout", name: "layout", widget: "hidden", default: "article.njk" }
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Excerpt", name: "excerpt", widget: "text" }
-      - { label: "Description (SEO)", name: "description", widget: "text" }
-      - { label: "Image", name: "image", widget: "image" }
-      - { label: "Tags", name: "tags", widget: "list", default: ["Article"] }
+      - { label: "Slug (URL)", name: "permalink", widget: "string", required: false, hint: "Optional. If blank, uses the title-based slug." }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Excerpt (Summary)", name: "excerpt", widget: "text" }
+      - { label: "Meta Description", name: "description", widget: "text", hint: "140–160 characters for search results." }
+      - { label: "Tags", name: "tags", widget: "list", default: ["senior-dogs"] }
+      - { label: "Featured Image", name: "featured_image", widget: "image", allow_multiple: false }
+      - { label: "Canonical URL", name: "canonical_url", widget: "string", required: false }
+      - label: "Schema Type"
+        name: "schema_type"
+        widget: "select"
+        options: ["Article", "BlogPosting", "NewsArticle"]
+        default: "Article"
       - { label: "Body", name: "body", widget: "markdown" }
 
-publish_mode: editorial_workflow
+  - name: "dogs"
+    label: "Dog Conditions (A–Z)"
+    folder: "dogs"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Layout", name: "layout", widget: "hidden", default: "article.njk" }
+      - { label: "Title (Condition)", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Overview", name: "overview", widget: "markdown" }
+      - { label: "Common Signs", name: "signs", widget: "markdown" }
+      - { label: "When to Call the Vet", name: "when_to_call", widget: "markdown" }
+      - { label: "Home Care Tips", name: "home_care", widget: "markdown" }
+      - { label: "Prevention", name: "prevention", widget: "markdown", required: false }
+      - { label: "Further Reading / Sources", name: "sources", widget: "markdown", required: false }
+      - { label: "Featured Image", name: "featured_image", widget: "image", allow_multiple: false, required: false }
+      - { label: "Tags", name: "tags", widget: "list", default: ["conditions"] }
+      - { label: "Body (Full Article)", name: "body", widget: "markdown" }
+
+  - name: "guides"
+    label: "Guides"
+    folder: "guides"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Layout", name: "layout", widget: "hidden", default: "article.njk" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Excerpt (Summary)", name: "excerpt", widget: "text" }
+      - { label: "Meta Description", name: "description", widget: "text" }
+      - { label: "Featured Image", name: "featured_image", widget: "image", allow_multiple: false, required: false }
+      - { label: "Tags", name: "tags", widget: "list", default: ["guides"] }
+      - { label: "Canonical URL", name: "canonical_url", widget: "string", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }
