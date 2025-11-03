@@ -1,22 +1,26 @@
-const { DateTime } = require("luxon");
+module.exports = function(eleventyConfig) {
+  eleventyConfig.addPassthroughCopy("assets");
 
-module.exports = function (eleventyConfig) {
-  // Copy /assets straight to /_site/assets
-  eleventyConfig.addPassthroughCopy({ "assets": "assets" });
-
-  // Add a 'date' filter for Nunjucks templates
-  eleventyConfig.addFilter("date", (value, format = "yyyy") => {
-    if (!value) return "";
-    return DateTime.fromJSDate(new Date(value)).toFormat(format);
+  // Add a simple date filter (Eleventy complains if none exist)
+  eleventyConfig.addFilter("date", (value) => {
+    try {
+      return new Date(value).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      });
+    } catch (e) {
+      return value;
+    }
   });
 
   return {
     dir: {
       input: ".",
       includes: "_includes",
-      data: "_data",
-      output: "_site"
+      layouts: "_includes/layouts",
+      output: "_site",
     },
-    templateFormats: ["njk", "md", "html", "11ty.js"]
+    templateFormats: ["njk", "md", "html"],
   };
 };
