@@ -1,81 +1,35 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% if title %}{{ title }} — {% endif %}{{ site.name }}</title>
-  <meta name="description" content="{{ description or 'Guides and articles to keep senior dogs happy, healthy, and comfortable.' }}">
-  <link rel="canonical" href="{{ site.url | url }}{{ page.url | url }}">
-  <link rel="stylesheet" href="/css/main.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{{ title or "Aging Dog Health" }}</title>
 
-  {# Open Graph #}
+  {# Simple cache-bust so updates always load fresh #}
+  {% set v = collections.all | length %}
+  <link rel="preload" as="style" href="/assets/css/main.css?v={{ v }}">
+  <link rel="stylesheet" href="/assets/css/main.css?v={{ v }}">
+
+  <meta property="og:site_name" content="Aging Dog Health">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="{{ title or site.name }}">
-  <meta property="og:description" content="{{ description or 'Guides and articles to keep senior dogs happy, healthy, and comfortable.' }}">
-  <meta property="og:url" content="{{ site.url | url }}{{ page.url | url }}">
-  <meta property="og:image" content="{{ ogImage or '/images/og-default.jpg' }}">
-
-  {# Twitter #}
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@{{ site.social.twitter }}">
-
-  {# GA4 Placeholder (replace G-XXXXXXX) #}
-  {% if process.env.ELEVENTY_ENV == 'prod' %}
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);} gtag('js', new Date());
-    gtag('config', 'G-XXXXXXX');
-  </script>
-  {% endif %}
-
-  {# AdSense Placeholder (replace ca-pub-XXXX) #}
-  {% if process.env.ELEVENTY_ENV == 'prod' %}
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXX" crossorigin="anonymous"></script>
-  {% endif %}
-<link rel="stylesheet" href="/assets/css/main.css" />
 </head>
 <body class="site">
-  <a class="skip" href="#main">Skip to content</a>
   <header class="site-header">
     <div class="wrap">
-      <a class="brand" href="/">{{ site.name }}</a>
-      <p class="tagline">{{ site.tagline }}</p>
+      <div class="brand">Aging Dog Health</div>
       <nav class="nav">
+        <a href="/">Home</a>
         <a href="/articles/">Articles</a>
-        <a href="/dogs/">A–Z Conditions</a>
+        <a href="/dogs/">Dog Conditions</a>
         <a href="/about/">About</a>
-        <a href="/contact/">Contact</a>
       </nav>
     </div>
   </header>
 
-  <main id="main" class="wrap">
-    {% if adsTop %}
-    <div class="ad ad--top"><!-- AdSense block placeholder --></div>
-    {% endif %}
-
-    {{ content | safe }}
-
-    {% if adsBottom %}
-    <div class="ad ad--bottom"><!-- AdSense block placeholder --></div>
-    {% endif %}
-  </main>
+  {{ content | safe }}
 
   <footer class="site-footer">
-    <div class="wrap">
-      <p>©️ {{ site.name }}. Compassionate, expert guidance for senior dogs.</p>
-      <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="contact">
-        <input type="hidden" name="form-name" value="contact">
-        <p class="hidden"><label>Don’t fill this out: <input name="bot-field"></label></p>
-        <div class="row">
-          <label>Your email <input type="email" name="email" required></label>
-          <label>Message <textarea name="message" rows="4" required></textarea></label>
-          <button type="submit">Send</button>
-        </div>
-      </form>
-    </div>
+    <div class="wrap">©️ {{ "now" | date("yyyy") }} Aging Dog Health</div>
   </footer>
-  <script src="/search.js" defer></script>
 </body>
 </html>
