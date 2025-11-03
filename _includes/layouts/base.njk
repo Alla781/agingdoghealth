@@ -29,7 +29,7 @@
   {{ content | safe }}
 
   <footer class="site-footer">
-    <div class="wrap">©️ {{ "now" | date("yyyy") }} Aging Dog Health</div>
+   <div class="wrap">©️ {{ "now" | isoDate("yyyy") }} Aging Dog Health</div>
   </footer>
 </body>
 </html>
