@@ -1,23 +1,8 @@
 [build]
-  command = "npm run build"
+  command = "npx @11ty/eleventy"
   publish = "_site"
 
-[build.environment]
-  NODE_VERSION = "20"
-
-[[plugins]]
-  package = "@netlify/plugin-sitemap"
-
-# Redirect Netlify CMS admin path
-[[redirects]]
-  from = "/admin"
-  to = "/admin/"
-  status = 301
-
-# Security headers
 [[headers]]
-  for = "/*"
+  for = "/assets/*"
   [headers.values]
-    X-Frame-Options = "SAMEORIGIN"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
+    Cache-Control = "public, max-age=31536000, immutable"
