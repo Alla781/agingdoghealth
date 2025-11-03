@@ -1,9 +1,11 @@
---
+---
 layout: layouts/base.njk
 ---
+
 {% set collections = collections or {} %}
 {% set collections.articles = collections.articles or [] %}
 {% set collections.dogs = collections.dogs or [] %}
+
 <section class="hero">
   <h1>Helping Your Best Friend Age Gracefully</h1>
   <p>Warm, expert guidance for caring owners of senior dogs. Simple tips, practical checklists, and honest advice.</p>
@@ -18,14 +20,14 @@ layout: layouts/base.njk
       {% if collections.articles and collections.articles | length > 0 %}
         {% for post in collections.articles | slice(0,3) %}
           {% if post.data and post.data.title %}
-            <li class="card">
-              <a href="{{ post.url }}">
-                <h3>{{ post.data.title }}</h3>
-                {% if post.data.excerpt %}
-                  <p>{{ post.data.excerpt }}</p>
-                {% endif %}
-              </a>
-            </li>
+          <li class="card">
+            <a href="{{ post.url }}">
+              <h3>{{ post.data.title }}</h3>
+              {% if post.data.excerpt %}
+              <p>{{ post.data.excerpt }}</p>
+              {% endif %}
+            </a>
+          </li>
           {% endif %}
         {% endfor %}
       {% else %}
@@ -40,11 +42,11 @@ layout: layouts/base.njk
       {% if collections.dogs and collections.dogs | length > 0 %}
         {% for dog in collections.dogs | slice(0,6) %}
           {% if dog.data and dog.data.title %}
-            <li><a href="{{ dog.url }}">{{ dog.data.title }}</a></li>
+          <li><a href="{{ dog.url }}">{{ dog.data.title }}</a></li>
           {% endif %}
         {% endfor %}
       {% else %}
-        <li>No dog conditions yet.</li>
+        <li><p>No dog conditions yet.</p></li>
       {% endif %}
     </ul>
   </div>
