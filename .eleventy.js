@@ -1,7 +1,7 @@
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("assets");
 
-  // Add a simple date filter (Eleventy complains if none exist)
+  // Add a simple date filter
   eleventyConfig.addFilter("date", (value) => {
     try {
       return new Date(value).toLocaleDateString("en-US", {
@@ -9,6 +9,15 @@ module.exports = function(eleventyConfig) {
         month: "short",
         day: "numeric",
       });
+    } catch (e) {
+      return value;
+    }
+  });
+
+  // ✅ Add this new ISO date filter
+  eleventyConfig.addFilter("isoDate", (value) => {
+    try {
+      return new Date(value).toISOString();
     } catch (e) {
       return value;
     }
