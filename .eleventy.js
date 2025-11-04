@@ -1,7 +1,7 @@
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("assets");
 
-  // Add a simple date filter
+  // Friendly readable date
   eleventyConfig.addFilter("date", (value) => {
     try {
       return new Date(value).toLocaleDateString("en-US", {
@@ -14,8 +14,17 @@ module.exports = function(eleventyConfig) {
     }
   });
 
-  // ✅ Add this new ISO date filter
+  // ISO date (used in <time datetime="{{ page.date | iso }}">)
   eleventyConfig.addFilter("isoDate", (value) => {
+    try {
+      return new Date(value).toISOString();
+    } catch (e) {
+      return value;
+    }
+  });
+
+  // Alias: Eleventy templates sometimes use |iso instead of |isoDate
+  eleventyConfig.addFilter("iso", (value) => {
     try {
       return new Date(value).toISOString();
     } catch (e) {
