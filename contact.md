@@ -1,5 +1,5 @@
 ---
-layout: layouts/article.njk
+layout: article.njk
 title: Contact
 excerpt: Questions or suggestions? Send us a note.
 description: Contact Aging Dog Health with your questions, suggestions, or partnership ideas.
