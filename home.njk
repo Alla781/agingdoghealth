@@ -1,0 +1,53 @@
+---
+layout: layouts/base.njk
+---
+
+{% set collections = collections or {} %}
+{% set collections.articles = collections.articles or [] %}
+{% set collections.dogs = collections.dogs or [] %}
+
+<section class="hero">
+  <h1>Helping Your Best Friend Age Gracefully</h1>
+  <p>Warm, expert guidance for caring owners of senior dogs. Simple tips, practical checklists, and honest advice.</p>
+  <a class="btn" href="/articles/">Explore Articles</a>
+  <a class="btn btn--light" href="/dogs/">Browse A–Z Conditions</a>
+</section>
+
+<section class="grid">
+  <div>
+    <h2>Popular Guides</h2>
+    <ul class="cards">
+      {% if collections.articles and collections.articles | length > 0 %}
+        {% for post in collections.articles | slice(0,3) %}
+          {% if post.data and post.data.title %}
+            <li class="card">
+              <a href="{{ post.url }}">
+                <h3>{{ post.data.title }}</h3>
+                {% if post.data.excerpt %}
+                  <p>{{ post.data.excerpt }}</p>
+                {% endif %}
+              </a>
+            </li>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        <li class="card"><p>No articles yet.</p></li>
+      {% endif %}
+    </ul>
+  </div>
+
+  <div>
+    <h2>Common Senior Conditions</h2>
+    <ul class="a2z">
+      {% if collections.dogs and collections.dogs | length > 0 %}
+        {% for dog in collections.dogs | slice(0,6) %}
+          {% if dog.data and dog.data.title %}
+            <li><a href="{{ dog.url }}">{{ dog.data.title }}</a></li>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        <li><p>No dog conditions yet.</p></li>
+      {% endif %}
+    </ul>
+  </div>
+</section>
