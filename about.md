@@ -1,5 +1,5 @@
 ---
-layout: layouts/article.njk
+layout: article.njk
 title: About Aging Dog Health
 excerpt: We’re a small team of dog lovers and health writers helping you care for your senior dog.
 description: Learn how Aging Dog Health helps owners keep senior dogs comfortable with simple, compassionate guidance.
