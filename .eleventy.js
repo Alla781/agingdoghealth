@@ -1,7 +1,7 @@
 const pluginSitemap = require("@quasibit/eleventy-plugin-sitemap");
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("assets");
-
+eleventyConfig.addPassthroughCopy("robots.txt");
   // Friendly readable date
   eleventyConfig.addFilter("date", (value) => {
     try {
