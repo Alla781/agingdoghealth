@@ -1,46 +1,60 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{{ title or "Aging Dog Health" }}</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ title or site.name }}</title>
 
-  {# Simple cache-bust so updates always load fresh #}
-  {% set v = collections.all | length %}
-  <link rel="preload" as="style" href="/assets/css/main.css?v={{ v }}">
-  <link rel="stylesheet" href="/assets/css/main.css?v={{ v }}">
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
-
-  <meta property="og:site_name" content="Aging Dog Health">
-  <meta property="og:type" content="website">
+  <!-- Meta / SEO -->
+  <meta name="description" content="{{ description or site.description }}">
+  <link rel="canonical" href="{{ site.url }}{{ page.url | url }}" />
 
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
 
-  <!-- Social / SEO meta -->
+  <!-- Open Graph / Social -->
   <meta property="og:title" content="{{ title or 'Aging Dog Health' }}">
   <meta property="og:description" content="Guides and remedies for senior dogs — trusted, caring advice.">
+  <meta property="og:type" content="website">
   <meta property="og:url" content="https://agingdoghealth.com">
   <meta property="og:image" content="https://agingdoghealth.com/assets/og-image.jpg">
 
+  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ title or 'Aging Dog Health' }}">
   <meta name="twitter:description" content="Practical health tips for senior dogs.">
   <meta name="twitter:image" content="https://agingdoghealth.com/assets/og-image.jpg">
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y186F5RD7"></script>
+  <!-- Search Console -->
+  <meta name="google-site-verification" content="ADD_YOUR_VERIFICATION_TOKEN_HERE" />
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-4Y186F5RD7');
+    gtag('config', 'G-XXXXXXXXXX');
   </script>
 
-  <meta name="google-site-verification" content="vj1nBFBF3JC5-KzVhf4GZoMxqW3_CJW6UPDTbJUC4" />
-
-  <!-- JSON-LD structured data -->
+  <!-- JSON-LD Structured Data -->
   {% if title %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Aging Dog Health",
+    "url": "https://agingdoghealth.com",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://agingdoghealth.com/?s={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+  {% endif %}
+
+  {% if page.url and title %}
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -54,121 +68,198 @@
   </script>
   {% endif %}
 
-  <!-- Site styling -->
+  <!-- Styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --primary: #004225;
-      --secondary: #2c2c2c;
-      --background: #f8f5ef;
-      --accent: #004225;
-      --font-family: 'Lato', sans-serif;
-    }
     body {
+      font-family: "Lato", sans-serif;
       margin: 0;
-      font-family: var(--font-family);
-      background: var(--background);
-      color: var(--secondary);
+      background-color: #fff;
+      color: #222;
       line-height: 1.6;
     }
-    header {
-      background: var(--accent);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1rem 1.5rem;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-    header .brand {
-      font-size: 1.3rem;
-      font-weight: bold;
-    }
-    nav {
-      display: flex;
-      gap: 1.2rem;
-    }
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-    }
-    nav a:hover {
-      color: #d9cdb3;
-    }
-    .menu-toggle {
-      display: none;
-      background: none;
-      border: 2px solid white;
-      color: white;
-      padding: 0.3rem 0.6rem;
-      font-size: 1.2rem;
-      cursor: pointer;
-    }
-    @media (max-width: 768px) {
-      nav {
-        display: none;
-        flex-direction: column;
-        background: var(--accent);
-        position: absolute;
-        top: 60px;
-        left: 0;
-        width: 100%;
-        padding: 1rem 0;
-        gap: 1rem;
-      }
-      nav.show {
-        display: flex;
-      }
-      .menu-toggle {
-        display: block;
-      }
-    }
     main {
-      max-width: 1000px;
+      max-width: 1100px;
       margin: 2rem auto;
-      padding: 0 1.5rem;
+      padding: 0 1rem;
     }
-    footer {
-      background: var(--accent);
-      color: white;
-      text-align: center;
-      padding: 1rem;
-      margin-top: 2rem;
-      font-size: 0.9rem;
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      loading: lazy;
     }
   </style>
 </head>
 
-<body class="site">
-  <header>
-    <div class="brand">Aging Dog Health</div>
-    <button class="menu-toggle" onclick="document.querySelector('nav').classList.toggle('show')">☰ Menu</button>
-    <nav>
-      <a href="/">Home</a>
-      <a href="/articles/">Articles</a>
-      <a href="/dogs/">Dog Conditions</a>
-      <a href="/about/">About</a>
-      <a href="/contact/">Contact</a>
-    </nav>
+<body>
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="wrap">
+      <div class="brand">
+        <a href="/">Aging Dog Health</a>
+      </div>
+
+      <button class="menu-toggle" aria-label="Toggle Menu">☰</button>
+
+      <nav class="nav">
+        <ul>
+          {% for item in menu %}
+            <li class="nav-item">
+              <a href="{{ item.url }}">{{ item.title }}</a>
+              {% if item.submenu and item.submenu.length > 0 %}
+                <ul class="dropdown">
+                  {% for sub in item.submenu %}
+                    <li><a href="{{ sub.url }}">{{ sub.title }}</a></li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+    </div>
   </header>
 
   <main>
-    {{ content | safe }}
+    {% block content %}{% endblock %}
   </main>
 
-  <footer>
-    <div>©️ {{ "now" | isoDate("yyyy") }} Aging Dog Health</div>
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; {{ "now" | date("YYYY") }} Aging Dog Health. All rights reserved.</p>
+      <p>
+        <a href="/privacy/">Privacy Policy</a> ·
+        <a href="/terms/">Terms</a> ·
+        <a href="/contact/">Contact</a>
+      </p>
+    </div>
   </footer>
 
+  <!-- SCRIPTS -->
   <script>
-    document.addEventListener('click', e => {
-      const nav = document.querySelector('nav');
-      if (!nav.contains(e.target) && !e.target.classList.contains('menu-toggle')) {
-        nav.classList.remove('show');
-      }
+    const toggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('.nav');
+    toggle.addEventListener('click', () => {
+      nav.classList.toggle('open');
     });
   </script>
+
+  <style>
+    /* HEADER */
+    .site-header {
+      background-color: #f5f2e8; /* beige */
+      border-bottom: 3px solid #245f3e; /* dark green */
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.8rem 1rem;
+    }
+    .brand a {
+      font-weight: 700;
+      color: #245f3e;
+      text-decoration: none;
+      font-size: 1.2rem;
+    }
+    .nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      margin: 0;
+      padding: 0;
+    }
+    .nav a {
+      text-decoration: none;
+      color: #245f3e;
+      font-weight: 600;
+    }
+    .nav a:hover {
+      color: #000;
+    }
+    .nav-item {
+      position: relative;
+    }
+    .dropdown {
+      display: none;
+      position: absolute;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      padding: 0.5rem 0;
+      list-style: none;
+      top: 100%;
+      left: 0;
+      min-width: 220px;
+      z-index: 999;
+    }
+    .dropdown li {
+      padding: 0.3rem 1rem;
+    }
+    .dropdown li a {
+      color: #245f3e;
+      display: block;
+    }
+    .nav-item:hover .dropdown {
+      display: block;
+    }
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      color: #245f3e;
+    }
+
+    /* FOOTER */
+    .site-footer {
+      background-color: #245f3e;
+      color: #fff;
+      text-align: center;
+      padding: 1.5rem 1rem;
+      margin-top: 3rem;
+    }
+    .site-footer a {
+      color: #f5f2e8;
+      text-decoration: none;
+    }
+    .site-footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* MOBILE */
+    @media (max-width: 800px) {
+      .menu-toggle {
+        display: block;
+      }
+      .nav {
+        display: none;
+        flex-direction: column;
+        background-color: #f5f2e8;
+        width: 100%;
+        padding: 1rem 0;
+      }
+      .nav.open {
+        display: flex;
+      }
+      .nav ul {
+        flex-direction: column;
+        gap: 0;
+      }
+      .dropdown {
+        position: static;
+        border: none;
+      }
+      .dropdown li {
+        padding: 0.5rem 1rem;
+      }
+    }
+  </style>
 </body>
 </html>
