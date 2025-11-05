@@ -1,3 +1,4 @@
+const pluginSitemap = require("@quasibit/eleventy-plugin-sitemap");
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("assets");
 
@@ -31,7 +32,12 @@ module.exports = function(eleventyConfig) {
       return value;
     }
   });
-
+// Add sitemap plugin for auto-generated sitemap.xml
+eleventyConfig.addPlugin(pluginSitemap, {
+  sitemap: {
+    hostname: "https://agingdoghealth.netlify.app",
+  },
+});
   return {
     dir: {
       input: ".",
