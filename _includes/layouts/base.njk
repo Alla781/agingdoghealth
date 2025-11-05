@@ -104,18 +104,31 @@
   .menu-toggle {
     display: block;
     margin-left: auto;
+    position: relative;
+    z-index: 2001;
   }
 
+  /* Mobile nav panel (slide-out style) */
   .nav {
     display: none;
     flex-direction: column;
     background-color: #f5f2e8;
-    width: 100%;
-    padding: 1rem 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 80%;
+    max-width: 320px;
+    padding: 2rem 1rem;
+    box-shadow: 2px 0 6px rgba(0,0,0,0.15);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 2000;
   }
 
   .nav.open {
     display: flex;
+    transform: translateX(0);
   }
 
   .nav ul {
@@ -124,18 +137,25 @@
   }
 
   .nav-item {
-    text-align: left;
-    padding: 0.5rem 1rem;
+    padding: 0.7rem 0;
   }
 
   .dropdown {
     display: none;
+    position: static;
+    border: none;
+    margin-top: 0.3rem;
     padding-left: 1rem;
   }
 
   .dropdown.open {
     display: block;
   }
+
+  .dropdown li {
+    padding: 0.4rem 0;
+  }
+}
 }
   </style>
 </head>
