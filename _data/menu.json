@@ -1,0 +1,45 @@
+[
+  {
+    "title": "Home",
+    "url": "/",
+    "submenu": []
+  },
+  {
+    "title": "Health & Care",
+    "url": "#",
+    "submenu": [
+      { "title": "Joint Pain Relief", "url": "/health/joint-pain/" },
+      { "title": "Mobility Support", "url": "/health/mobility/" },
+      { "title": "Cognitive Health", "url": "/health/cognitive/" },
+      { "title": "Dental Care", "url": "/health/dental/" }
+    ]
+  },
+  {
+    "title": "Nutrition",
+    "url": "#",
+    "submenu": [
+      { "title": "Senior Diets", "url": "/nutrition/diets/" },
+      { "title": "Supplements", "url": "/nutrition/supplements/" },
+      { "title": "Homemade Meals", "url": "/nutrition/homemade/" }
+    ]
+  },
+  {
+    "title": "Lifestyle",
+    "url": "#",
+    "submenu": [
+      { "title": "Exercise", "url": "/lifestyle/exercise/" },
+      { "title": "Comfort Products", "url": "/lifestyle/products/" },
+      { "title": "Travel with Dogs", "url": "/lifestyle/travel/" }
+    ]
+  },
+  {
+    "title": "Guides & Articles",
+    "url": "/articles/",
+    "submenu": []
+  },
+  {
+    "title": "About Us",
+    "url": "/about/",
+    "submenu": []
+  }
+]
