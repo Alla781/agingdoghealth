@@ -12,6 +12,46 @@
 
   <meta property="og:site_name" content="Aging Dog Health">
   <meta property="og:type" content="website">
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+
+<!-- Social / SEO meta -->
+<meta property="og:title" content="{{ title or 'Aging Dog Health' }}">
+<meta property="og:description" content="Guides and remedies for senior dogs — trusted, caring advice.">
+<meta property="og:url" content="https://agingdoghealth.com">
+<meta property="og:image" content="https://agingdoghealth.com/assets/og-image.jpg">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ title or 'Aging Dog Health' }}">
+<meta name="twitter:description" content="Practical health tips for senior dogs.">
+<meta name="twitter:image" content="https://agingdoghealth.com/assets/og-image.jpg">
+
+<!-- Google Analytics 4 (placeholder: replace with your GA ID) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+
+<!-- Search Console verification (placeholder token) -->
+<meta name="google-site-verification" content="ADD_YOUR_VERIFICATION_TOKEN_HERE" />
+
+<!-- JSON-LD structured data -->
+{% if title %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ title | escape }}",
+  "author": { "@type": "Organization", "name": "Aging Dog Health" },
+  "publisher": { "@type": "Organization", "name": "Aging Dog Health" },
+  "url": "https://agingdoghealth.com{{ page.url }}",
+  "mainEntityOfPage": "https://agingdoghealth.com{{ page.url }}"
+}
+</script>
+{% endif %}
 </head>
 <body class="site">
   <header class="site-header">
