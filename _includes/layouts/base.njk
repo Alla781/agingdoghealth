@@ -253,14 +253,22 @@
         flex-direction: column;
         gap: 0;
       }
-      .dropdown {
-        position: static;
-        border: none;
-      }
-      .dropdown li {
-        padding: 0.5rem 1rem;
-      }
-    }
+    /* MOBILE DROPDOWN FIX */
+@media (max-width: 800px) {
+  .dropdown {
+    display: none;
+    position: static;
+    border: none;
+  }
+
+  .nav-item.open > .dropdown {
+    display: block;
+  }
+
+  .dropdown li {
+    padding: 0.5rem 1rem;
+  }
+}
   </style>
 </body>
 </html>
