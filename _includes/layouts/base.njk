@@ -324,17 +324,16 @@ document.addEventListener('DOMContentLoaded', function() {
   const nav = document.querySelector('.nav');
   const navItems = document.querySelectorAll('.nav-item > a');
 
-  // Toggle whole menu visibility
-  menuToggle.addEventListener('click', () => {
+  // Open/close full menu on mobile
+  menuToggle.addEventListener('click', function() {
     nav.classList.toggle('open');
   });
 
-  // Toggle dropdowns on mobile
+  // Enable dropdowns on mobile
   navItems.forEach(link => {
-    link.addEventListener('click', e => {
-      const parent = link.parentElement;
-      const dropdown = parent.querySelector('.dropdown');
-      if (dropdown && window.innerWidth < 800) {
+    link.addEventListener('click', function(e) {
+      const dropdown = this.nextElementSibling;
+      if (dropdown && dropdown.classList.contains('dropdown') && window.innerWidth < 800) {
         e.preventDefault();
         dropdown.classList.toggle('open');
       }
