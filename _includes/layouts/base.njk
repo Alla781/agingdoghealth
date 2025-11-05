@@ -270,5 +270,29 @@
   }
 }
   </style>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const menuToggle = document.querySelector('.menu-toggle');
+  const nav = document.querySelector('.nav');
+  const navItems = document.querySelectorAll('.nav-item > a');
+
+  // Toggle entire nav visibility
+  menuToggle.addEventListener('click', () => {
+    nav.classList.toggle('open');
+  });
+
+  // Toggle sub-menus on mobile
+  navItems.forEach(link => {
+    link.addEventListener('click', e => {
+      const parent = link.parentElement;
+      const dropdown = parent.querySelector('.dropdown');
+      if (dropdown && window.innerWidth < 800) {
+        e.preventDefault();
+        dropdown.classList.toggle('open');
+      }
+    });
+  });
+});
+</script>
 </body>
 </html>
