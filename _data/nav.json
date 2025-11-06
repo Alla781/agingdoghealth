@@ -1,0 +1,56 @@
+[
+  {
+    "title": "Health Conditions",
+    "url": "/conditions/",
+    "children": [
+      { "title": "Arthritis & Joint Pain", "url": "/conditions/arthritis/" },
+      { "title": "Cognitive Decline (CCD)", "url": "/conditions/canine-cognitive-dysfunction/" },
+      { "title": "Dental Problems", "url": "/conditions/dental/" },
+      { "title": "Heart & Kidneys", "url": "/conditions/heart-kidney/" },
+      { "title": "Incontinence", "url": "/conditions/incontinence/" }
+    ]
+  },
+  {
+    "title": "Care & Lifestyle",
+    "url": "/care/",
+    "children": [
+      { "title": "Exercise & Mobility", "url": "/care/exercise/" },
+      { "title": "Comfort & Sleep", "url": "/care/comfort/" },
+      { "title": "Home Adjustments", "url": "/care/home-adjustments/" },
+      { "title": "Travel with Seniors", "url": "/care/travel/" }
+    ]
+  },
+  {
+    "title": "Nutrition",
+    "url": "/nutrition/",
+    "children": [
+      { "title": "Feeding Guides", "url": "/nutrition/feeding-guides/" },
+      { "title": "Weight Management", "url": "/nutrition/weight/" },
+      { "title": "Hydration & Broths", "url": "/nutrition/hydration/" }
+    ]
+  },
+  {
+    "title": "Remedies & Supplements",
+    "url": "/remedies/",
+    "children": [
+      { "title": "Natural Remedies", "url": "/remedies/natural/" },
+      { "title": "Joint Supplements", "url": "/remedies/joint-supplements/" },
+      { "title": "Gut & Probiotics", "url": "/remedies/probiotics/" },
+      { "title": "Skin & Coat", "url": "/remedies/skin-coat/" }
+    ]
+  },
+  {
+    "title": "Vet & Safety",
+    "url": "/vet/",
+    "children": [
+      { "title": "When to See a Vet", "url": "/vet/when-to-see/" },
+      { "title": "Medication Basics", "url": "/vet/medication-basics/" },
+      { "title": "Palliative Care", "url": "/vet/palliative-care/" }
+    ]
+  },
+  { "title": "Articles", "url": "/articles/" },
+  { "title": "About", "url": "/about/" },
+  { "title": "Contact", "url": "/contact/" },
+  { "title": "Privacy Policy", "url": "/privacy-policy/" },
+  { "title": "Terms", "url": "/terms/" }
+]
