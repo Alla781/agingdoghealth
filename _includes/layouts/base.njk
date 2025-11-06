@@ -113,7 +113,8 @@
     /* Mobile drilldown */
     .panel-root{margin:0;padding:0}
     .panel-root > li > a{display:block;padding:12px 4px;font-weight:700}
-    .child-panel{display:none}
+   .child-panel[hidden]{display:none}
+.panel-root[hidden]{display:none}
     .back-link{margin:6px 0 10px;padding:8px 0;background:transparent;border:0;color:var(--accent);font-weight:700;font-size:16px;text-align:left;cursor:pointer}
     .child-title{margin:0 0 8px;font-size:18px;font-weight:700}
     .child-list a{display:block;padding:10px 6px;border-radius:6px;color:#103a2b}
@@ -255,5 +256,52 @@
       window.addEventListener('resize', function(){ if (isDesktop()) { showRoot(); } });
     })();
   </script>
+<script>
+(function () {
+  var nav = document.getElementById('siteNav');
+  if (!nav) return;
+
+  var rootList   = nav.querySelector('.panel-root');   // headings list
+  var childPanel = nav.querySelector('#childPanel');   // drill-in panel
+  var backLink   = nav.querySelector('#backLink');
+  var childTitle = nav.querySelector('#childTitle');
+  var childList  = nav.querySelector('.child-list');
+
+  function isDesktop() {
+    return window.matchMedia('(min-width: 992px)').matches;
+  }
+
+  // Tap a heading on mobile → show its sub-links
+  nav.querySelectorAll('.has-children > a').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      if (isDesktop()) return;         // desktop uses hover dropdowns
+      e.preventDefault();
+
+      var li = this.parentElement;
+      var dd = li.querySelector('.dropdown ul');   // desktop submenu list
+      if (!dd) return;
+
+      // Title from data-title if present, else link text
+      childTitle.textContent = this.dataset.title || this.textContent.trim();
+      childList.innerHTML = dd.innerHTML;
+
+      // Show child panel, hide headings (toggle ⁠ hidden ⁠)
+      rootList.hidden = true;
+      childPanel.hidden = false;
+      backLink.focus();
+    });
+  });
+
+  // ‹ Back → return to headings list
+  if (backLink) {
+    backLink.addEventListener('click', function (e) {
+      e.preventDefault();
+      childPanel.hidden = true;
+      childList.innerHTML = '';
+      rootList.hidden = false;
+    });
+  }
+})();
+</script>
 </body>
 </html>
