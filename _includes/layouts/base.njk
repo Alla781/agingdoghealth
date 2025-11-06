@@ -2,375 +2,247 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{{ title or site.name }}</title>
-
-  <!-- Meta / SEO -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ (title or site.name) | safe }}</title>
   <meta name="description" content="{{ description or site.description }}">
-  <link rel="canonical" href="{{ site.url }}{{ page.url | url }}" />
+  <link rel="canonical" href="{{ (site.url or '') }}{{ page.url | url }}" />
 
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
 
-  <!-- Open Graph / Social -->
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Open Graph -->
   <meta property="og:title" content="{{ title or 'Aging Dog Health' }}">
   <meta property="og:description" content="Guides and remedies for senior dogs — trusted, caring advice.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://agingdoghealth.com">
-  <meta property="og:image" content="https://agingdoghealth.com/assets/og-image.jpg">
+  <meta property="og:url" content="{{ (site.url or 'https://agingdoghealth.com') }}{{ page.url | url }}">
+  <meta property="og:image" content="{{ (site.url or 'https://agingdoghealth.com') }}/assets/og-image.jpg">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ title or 'Aging Dog Health' }}">
   <meta name="twitter:description" content="Practical health tips for senior dogs.">
-  <meta name="twitter:image" content="https://agingdoghealth.com/assets/og-image.jpg">
+  <meta name="twitter:image" content="{{ (site.url or 'https://agingdoghealth.com') }}/assets/og-image.jpg">
 
-  <!-- Search Console -->
-  <meta name="google-site-verification" content="ADD_YOUR_VERIFICATION_TOKEN_HERE" />
-
-  <!-- Google Analytics -->
+  <!-- GA4 + Search Console placeholders -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX');
+    function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-XXXXXXXXXX');
   </script>
+  <meta name="google-site-verification" content="ADD_YOUR_VERIFICATION_TOKEN_HERE" />
 
-  <!-- JSON-LD Structured Data -->
-  {% if title %}
+  <!-- JSON-LD -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Aging Dog Health",
-    "url": "https://agingdoghealth.com",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://agingdoghealth.com/?s={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
-  }
+  {"@context":"https://schema.org","@type":"WebSite","name":"Aging Dog Health","url":"https://agingdoghealth.com",
+   "potentialAction":{"@type":"SearchAction","target":"https://agingdoghealth.com/?s={search_term_string}",
+   "query-input":"required name=search_term_string"}}
   </script>
-  {% endif %}
-
   {% if page.url and title %}
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": "{{ title | escape }}",
-    "author": { "@type": "Organization", "name": "Aging Dog Health" },
-    "publisher": { "@type": "Organization", "name": "Aging Dog Health" },
-    "url": "https://agingdoghealth.com{{ page.url }}",
-    "mainEntityOfPage": "https://agingdoghealth.com{{ page.url }}"
-  }
+  {"@context":"https://schema.org","@type":"BlogPosting","headline":"{{ title | escape }}",
+   "author":{"@type":"Organization","name":"Aging Dog Health"},
+   "publisher":{"@type":"Organization","name":"Aging Dog Health"},
+   "url":"https://agingdoghealth.com{{ page.url }}","mainEntityOfPage":"https://agingdoghealth.com{{ page.url }}"}
   </script>
   {% endif %}
 
   <!-- Styles -->
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet" />
   <style>
-    body {
-      font-family: "Lato", sans-serif;
-      margin: 0;
-      background-color: #fff;
-      color: #222;
-      line-height: 1.6;
+    :root { --drawer-width: 320px; --brand:#111; --muted:#555; --stroke:#eee; }
+    html { box-sizing:border-box; }
+    ,:before,*:after { box-sizing:inherit; }
+    body { margin:0; font-family: 'Lato', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; line-height:1.55; color:#111;}
+    a { color:inherit; text-decoration:none; }
+    .container { max-width:1100px; margin:0 auto; padding:0 16px; }
+
+    /* Header */
+    .site-header { position:sticky; top:0; z-index:1200; background:#fff; border-bottom:1px solid var(--stroke); }
+    .site-header__row { display:flex; align-items:center; justify-content:space-between; height:60px; }
+    .brand { display:inline-flex; align-items:center; gap:10px; font-weight:700; }
+    .brand img { height:28px; width:auto; }
+
+    /* Hamburger */
+    .menu-toggle { display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border:0; background:transparent; cursor:pointer; }
+    .menu-toggle .bars { position:relative; width:22px; height:2px; background:#111; }
+    .menu-toggle .bars:before,.menu-toggle .bars:after{ content:""; position:absolute; left:0; right:0; height:2px; background:#111; }
+    .menu-toggle .bars:before{ top:-7px; } .menu-toggle .bars:after{ top:7px; }
+
+    /* Drawer (mobile) */
+    nav[data-drawer]{ position:fixed; top:0; left:0; bottom:0; width:var(--drawer-width); background:#fff;
+      transform:translateX(-100%); transition:transform .25s ease-out; box-shadow:0 0 0 1px rgba(0,0,0,.04), 0 10px 30px rgba(0,0,0,.15);
+      padding:16px; overflow-y:auto; z-index:1100;}
+    nav[data-drawer] .drawer-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+    nav[data-drawer] ul{ list-style:none; padding:0; margin:8px 0 0; }
+    nav[data-drawer] li{ border-bottom:1px solid #f2f2f2; }
+    nav[data-drawer] > ul > li > a{ display:block; padding:12px 4px; font-weight:700; }
+
+    /* Submenu (mobile as accordion) */
+    .sub-toggle{ border:0; background:transparent; font-size:16px; padding:12px 6px; cursor:pointer; }
+    .sub-toggle::after{ content:"▸"; display:inline-block; margin-left:6px; transform: translateY(-1px); }
+    .has-children.open .sub-toggle::after{ content:"▾"; }
+    .dropdown{ display:none; padding:6px 0 10px 6px; }
+    .has-children.open > .dropdown{ display:block; }
+    .dropdown a{ display:block; padding:10px 4px; font-weight:600; color:var(--muted); }
+
+    /* Overlay */
+    .drawer-overlay{ position:fixed; inset:0; background:rgba(0,0,0,.45); opacity:0; transition:opacity .2s ease; z-index:1050; }
+    .drawer-overlay[hidden]{ display:none; }
+    body.nav-open nav[data-drawer]{ transform:translateX(0); }
+    body.nav-open{ overflow:hidden; }
+    body.nav-open .drawer-overlay{ opacity:1; }
+
+    /* Desktop nav + dropdowns */
+    @media (min-width: 992px){
+      .menu-toggle{ display:none; }
+      nav[data-drawer]{ position:static; transform:none; box-shadow:none; width:auto; padding:0; height:auto; overflow:visible; }
+      nav[data-drawer] .drawer-head{ display:none; }
+      nav[data-drawer] ul{ display:flex; gap:22px; margin:0; }
+      nav[data-drawer] li{ position:relative; border:0; }
+      nav[data-drawer] > ul > li > a{ padding:0; font-weight:700; }
+
+      /* Dropdown container */
+      .dropdown{ 
+        display:none; position:absolute; top:calc(100% + 14px); left:0; min-width:280px; background:#fff; border:1px solid var(--stroke);
+        box-shadow:0 12px 30px rgba(0,0,0,.14); padding:10px; border-radius:6px; 
+      }
+      .dropdown ul{ display:block; }
+      .dropdown li{ border:0; }
+      .dropdown a{ padding:8px 10px; color:#111; font-weight:600; white-space:nowrap; }
+      .has-children:hover > .dropdown,
+      .has-children:focus-within > .dropdown{ display:block; }
+      .sub-toggle{ display:none; } /* hide accordion buttons on desktop */
+      .drawer-overlay{ display:none !important; }
     }
-    main {
-      max-width: 1100px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      loading: lazy;
-    }
-/* Mobile Menu Behavior */
-.menu-toggle {
-  display: none;
-  background: none;
-  border: none;
-  font-size: 1.8rem;
-  color: #245f3e;
-  cursor: pointer;
-}
 
-/* Hide nav on small screens */
-@media (max-width: 800px) {
-  .menu-toggle {
-    display: block;
-    margin-left: auto;
-    position: relative;
-    z-index: 2001;
-  }
+    /* Accessibility helpers */
+    .skip-link{ position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden; }
+    .skip-link:focus{ position:static; width:auto; height:auto; padding:6px 10px; background:#000; color:#fff; }
 
-  /* Mobile nav panel (slide-out style) */
-  .nav {
-    display: none;
-    flex-direction: column;
-    background-color: #f5f2e8;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 80%;
-    max-width: 320px;
-    padding: 2rem 1rem;
-    box-shadow: 2px 0 6px rgba(0,0,0,0.15);
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-    z-index: 2000;
-  }
-
-  .nav.open {
-    display: flex;
-    transform: translateX(0);
-  }
-
-  .nav ul {
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .nav-item {
-    padding: 0.7rem 0;
-  }
-
-  .dropdown {
-    display: none;
-    position: static;
-    border: none;
-    margin-top: 0.3rem;
-    padding-left: 1rem;
-  }
-
-  .dropdown.open {
-    display: block;
-  }
-
-  .dropdown li {
-    padding: 0.4rem 0;
-  }
-}
-}
+    /* Main/Footer */
+    main{ padding:24px 0; }
+    footer{ margin-top:40px; border-top:1px solid var(--stroke); padding:24px 0; color:#555; }
   </style>
 </head>
 
-<body>
-  <!-- HEADER -->
-  <header class="site-header">
-    <div class="wrap">
-      <div class="brand">
-        <a href="/">Aging Dog Health</a>
-      </div>
+<body class="{{ page.class | default('') }}">
+  <a class="skip-link" href="#content">Skip to content</a>
 
-      <button class="menu-toggle" aria-label="Toggle Menu">☰</button>
+  {# pull menu from _data/nav.json if present; fall back to defaults #}
+  {% set nav_items = nav or site.nav or [
+    { "url": "/", "title": "Home" },
+    { "url": "/articles/", "title": "Articles" },
+    { "url": "/about/", "title": "About" },
+    { "url": "/contact/", "title": "Contact" },
+    { "url": "/privacy-policy/", "title": "Privacy Policy" },
+    { "url": "/terms/", "title": "Terms" }
+  ] %}
 
-      <nav class="nav">
+  <header class="site-header" role="banner">
+    <div class="container site-header__row">
+      <a class="brand" href="{{ '/' | url }}">
+        <img src="/assets/logo.svg" alt="Aging Dog Health" />
+        <span>{{ site.name or 'Aging Dog Health' }}</span>
+      </a>
+
+      <nav id="siteNav" data-drawer aria-label="Primary">
+        <div class="drawer-head">
+          <strong>{{ site.name or 'Menu' }}</strong>
+          <button id="closeDrawer" class="menu-toggle" aria-label="Close menu">
+            <span class="bars" aria-hidden="true"></span>
+          </button>
+        </div>
+
         <ul>
-          {% for item in menu %}
-            <li class="nav-item">
-              <a href="{{ item.url }}">{{ item.title }}</a>
-              {% if item.submenu and item.submenu.length > 0 %}
-                <ul class="dropdown">
-                  {% for sub in item.submenu %}
-                    <li><a href="{{ sub.url }}">{{ sub.title }}</a></li>
-                  {% endfor %}
-                </ul>
-              {% endif %}
-            </li>
+          {% for item in nav_items %}
+            {% if item.children %}
+              <li class="has-children">
+                <a href="{{ item.url | url }}">{{ item.title }}</a>
+                <button class="sub-toggle" aria-expanded="false" aria-controls="sub-{{ loop.index }}">Sub</button>
+                <div id="sub-{{ loop.index }}" class="dropdown">
+                  <ul>
+                    {% for child in item.children %}
+                      <li><a href="{{ child.url | url }}">{{ child.title }}</a></li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </li>
+            {% else %}
+              <li><a href="{{ item.url | url }}">{{ item.title }}</a></li>
+            {% endif %}
           {% endfor %}
         </ul>
       </nav>
+
+      <button id="menuToggle" class="menu-toggle" aria-controls="siteNav" aria-expanded="false" aria-label="Open menu">
+        <span class="bars" aria-hidden="true"></span>
+      </button>
     </div>
   </header>
 
-  <main>
-    {% block content %}{% endblock %}
+  <div id="drawerOverlay" class="drawer-overlay" hidden></div>
+
+  <main id="content" class="container" tabindex="-1">
+    {{ content | safe }}
+    {# simple ad placeholders you can style later
+    <div class="ad-slot ad-slot--leaderboard" aria-label="ad - leaderboard 728x90"></div>
+    <div class="ad-slot ad-slot--in-article" aria-label="ad - in-article 336x280"></div>
+    <aside class="ad-slot ad-slot--sidebar" aria-label="ad - sidebar 300x250"></aside>
+    #}
   </main>
 
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="wrap">
-      <p>&copy; {{ "now" | date("YYYY") }} Aging Dog Health. All rights reserved.</p>
-      <p>
-        <a href="/privacy/">Privacy Policy</a> ·
-        <a href="/terms/">Terms</a> ·
-        <a href="/contact/">Contact</a>
-      </p>
+  <footer role="contentinfo">
+    <div class="container">
+      <div>&copy; {{ (site.name or 'Aging Dog Health') }} {{ "now" | date("yyyy") }}</div>
     </div>
   </footer>
 
-<!-- SCRIPTS -->
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const menuToggle = document.querySelector(".menu-toggle");
-  const nav = document.querySelector(".nav");
-  const navItems = document.querySelectorAll(".nav-item > a");
+  <script>
+    (function () {
+      var body = document.body;
+      var nav = document.getElementById('siteNav');
+      var toggle = document.getElementById('menuToggle');
+      var closeBtn = document.getElementById('closeDrawer');
+      var overlay = document.getElementById('drawerOverlay');
 
-  // Toggle full menu (hamburger)
-  menuToggle.addEventListener("click", () => {
-    nav.classList.toggle("open");
-  });
+      function openNav(){ body.classList.add('nav-open'); overlay.hidden = false; toggle.setAttribute('aria-expanded','true');
+        var firstLink = nav.querySelector('a'); if(firstLink) firstLink.focus({preventScroll:true}); }
+      function closeNav(){ body.classList.remove('nav-open'); overlay.hidden = true; toggle.setAttribute('aria-expanded','false');
+        toggle.focus({preventScroll:true}); }
+      function isOpen(){ return body.classList.contains('nav-open'); }
 
-  // Toggle dropdowns only on mobile
-  navItems.forEach(link => {
-    link.addEventListener("click", e => {
-      const dropdown = link.nextElementSibling;
-      if (dropdown && dropdown.classList.contains("dropdown") && window.innerWidth < 800) {
-        e.preventDefault();
-        dropdown.classList.toggle("open");
-      }
-    });
-  });
-});
-</script>
+      toggle.addEventListener('click', function(){ isOpen()? closeNav(): openNav(); });
+      if (closeBtn) closeBtn.addEventListener('click', closeNav);
+      overlay.addEventListener('click', closeNav);
 
-<style>
-/* HEADER */
-.site-header {
-  background-color: #f5f2e8;
-  border-bottom: 3px solid #245f3e;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
+      // Mobile submenu accordions
+      nav.querySelectorAll('.has-children .sub-toggle').forEach(function(btn){
+        btn.addEventListener('click', function(e){
+          e.preventDefault();
+          var li = btn.closest('.has-children');
+          var expanded = btn.getAttribute('aria-expanded') === 'true';
+          btn.setAttribute('aria-expanded', (!expanded).toString());
+          li.classList.toggle('open', !expanded);
+        });
+      });
 
-.wrap {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0.8rem 1rem;
-}
-
-.brand a {
-  font-weight: 700;
-  color: #245f3e;
-  text-decoration: none;
-  font-size: 1.2rem;
-}
-
-/* NAV DESKTOP */
-.nav ul {
-  list-style: none;
-  display: flex;
-  gap: 1.5rem;
-  margin: 0;
-  padding: 0;
-}
-
-.nav a {
-  text-decoration: none;
-  color: #245f3e;
-  font-weight: 600;
-}
-
-.nav a:hover {
-  color: #000;
-}
-
-.nav-item {
-  position: relative;
-}
-
-/* DROPDOWN DESKTOP */
-.dropdown {
-  display: none;
-  position: absolute;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  padding: 0.5rem 0;
-  list-style: none;
-  top: 100%;
-  left: 0;
-  min-width: 220px;
-  z-index: 999;
-}
-
-.nav-item:hover > .dropdown {
-  display: block;
-}
-
-.dropdown li {
-  padding: 0.3rem 1rem;
-}
-
-.dropdown li a {
-  color: #245f3e;
-  display: block;
-}
-
-/* MOBILE */
-.menu-toggle {
-  display: none;
-  background: none;
-  border: none;
-  font-size: 1.8rem;
-  color: #245f3e;
-  cursor: pointer;
-}
-
-@media (max-width: 800px) {
-  .menu-toggle {
-    display: block;
-    margin-left: auto;
-  }
-
-  .nav {
-    display: none;
-    flex-direction: column;
-    background-color: #f5f2e8;
-    width: 100%;
-    padding: 1rem 0;
-  }
-
-  .nav.open {
-    display: flex;
-  }
-
-  .nav ul {
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .dropdown {
-    display: none;
-    position: static;
-    border: none;
-  }
-
-  .dropdown.open {
-    display: block;
-  }
-
-  .dropdown li {
-    padding: 0.5rem 1rem;
-  }
-}
-
-/* FOOTER */
-.site-footer {
-  background-color: #245f3e;
-  color: #fff;
-  text-align: center;
-  padding: 1.5rem 1rem;
-  margin-top: 3rem;
-}
-
-.site-footer a {
-  color: #f5f2e8;
-  text-decoration: none;
-}
-
-.site-footer a:hover {
-  text-decoration: underline;
-}
-</style>
+      // Esc to close; keep focus trap when drawer open
+      document.addEventListener('keydown', function(e){
+        if (e.key === 'Escape' && isOpen()) { e.preventDefault(); closeNav(); }
+        if (e.key === 'Tab' && isOpen()) {
+          var focusables = nav.querySelectorAll('a, button');
+          if(!focusables.length) return;
+          var first = focusables[0], last = focusables[focusables.length - 1];
+          var active = document.activeElement;
+          if (e.shiftKey && active === first) { e.preventDefault(); last.focus(); }
+          else if (!e.shiftKey && active === last) { e.preventDefault(); first.focus(); }
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
