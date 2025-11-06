@@ -30,17 +30,13 @@
 
   <!-- GA4 + Search Console placeholders -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-XXXXXXXXXX');
-  </script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
   <meta name="google-site-verification" content="ADD_YOUR_VERIFICATION_TOKEN_HERE" />
 
   <!-- JSON-LD -->
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"WebSite","name":"Aging Dog Health","url":"https://agingdoghealth.com",
-   "potentialAction":{"@type":"SearchAction","target":"https://agingdoghealth.com/?s={search_term_string}",
-   "query-input":"required name=search_term_string"}}
+   "potentialAction":{"@type":"SearchAction","target":"https://agingdoghealth.com/?s={search_term_string}","query-input":"required name=search_term_string"}}
   </script>
   {% if page.url and title %}
   <script type="application/ld+json">
@@ -51,99 +47,100 @@
   </script>
   {% endif %}
 
-  <!-- Styles -->
   <style>
-    :root { --drawer-width: 320px; --brand:#111; --muted:#555; --stroke:#eee; }
-    html { box-sizing:border-box; }
-    ,:before,*:after { box-sizing:inherit; }
-    body { margin:0; font-family: 'Lato', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; line-height:1.55; color:#111;}
-    a { color:inherit; text-decoration:none; }
-    .container { max-width:1100px; margin:0 auto; padding:0 16px; }
+    :root{
+      --accent:#1e4a36;     /* tune to your palette */
+      --stroke:#e6e6e6;
+      --muted:#596269;
+      --drawer-w:320px;
+    }
+    html{box-sizing:border-box},:before,*:after{box-sizing:inherit}
+    body{margin:0;font-family:'Lato',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.55;color:#111;background:#fff}
+    a{text-decoration:none;color:inherit}
+    .container{max-width:1100px;margin:0 auto;padding:0 16px}
 
     /* Header */
-    .site-header { position:sticky; top:0; z-index:1200; background:#fff; border-bottom:1px solid var(--stroke); }
-    .site-header__row { display:flex; align-items:center; justify-content:space-between; height:60px; }
-    .brand { display:inline-flex; align-items:center; gap:10px; font-weight:700; }
-    .brand img { height:28px; width:auto; }
+    .site-header{position:sticky;top:0;z-index:1200;background:#fff;border-bottom:1px solid var(--stroke)}
+    .site-row{display:flex;align-items:center;justify-content:space-between;height:62px}
+    .brand{display:inline-flex;align-items:center;gap:10px;font-weight:700}
+    .brand img{height:28px;width:auto}
 
     /* Hamburger */
-    .menu-toggle { display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border:0; background:transparent; cursor:pointer; }
-    .menu-toggle .bars { position:relative; width:22px; height:2px; background:#111; }
-    .menu-toggle .bars:before,.menu-toggle .bars:after{ content:""; position:absolute; left:0; right:0; height:2px; background:#111; }
-    .menu-toggle .bars:before{ top:-7px; } .menu-toggle .bars:after{ top:7px; }
+    .menu-toggle{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:0;background:transparent;cursor:pointer}
+    .menu-toggle .bars{position:relative;width:22px;height:2px;background:#111}
+    .menu-toggle .bars:before,.menu-toggle .bars:after{content:"";position:absolute;left:0;right:0;height:2px;background:#111}
+    .menu-toggle .bars:before{top:-7px}.menu-toggle .bars:after{top:7px}
 
     /* Drawer (mobile) */
-    nav[data-drawer]{ position:fixed; top:0; left:0; bottom:0; width:var(--drawer-width); background:#fff;
-      transform:translateX(-100%); transition:transform .25s ease-out; box-shadow:0 0 0 1px rgba(0,0,0,.04), 0 10px 30px rgba(0,0,0,.15);
-      padding:16px; overflow-y:auto; z-index:1100;}
-    nav[data-drawer] .drawer-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
-    nav[data-drawer] ul{ list-style:none; padding:0; margin:8px 0 0; }
-    nav[data-drawer] li{ border-bottom:1px solid #f2f2f2; }
-    nav[data-drawer] > ul > li > a{ display:block; padding:12px 4px; font-weight:700; }
+    nav[data-drawer]{position:fixed;top:0;left:0;bottom:0;width:var(--drawer-w);background:#fff;transform:translateX(-100%);transition:transform .25s ease-out;box-shadow:0 0 0 1px rgba(0,0,0,.04),0 10px 30px rgba(0,0,0,.15);padding:16px;overflow-y:auto;z-index:1100;border-right:6px solid var(--accent)}
+    nav[data-drawer] .drawer-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+    nav[data-drawer] ul{list-style:none;padding:0;margin:0}
 
-    /* Submenu (mobile as accordion) */
-    .sub-toggle{ border:0; background:transparent; font-size:16px; padding:12px 6px; cursor:pointer; }
-    .sub-toggle::after{ content:"▸"; display:inline-block; margin-left:6px; transform: translateY(-1px); }
-    .has-children.open .sub-toggle::after{ content:"▾"; }
-    .dropdown{ display:none; padding:6px 0 10px 6px; }
-    .has-children.open > .dropdown{ display:block; }
-    .dropdown a{ display:block; padding:10px 4px; font-weight:600; color:var(--muted); }
+    .overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);opacity:0;transition:opacity .2s ease;z-index:1050}
+    .overlay[hidden]{display:none}
+    body.nav-open nav[data-drawer]{transform:translateX(0)}
+    body.nav-open{overflow:hidden}
+    body.nav-open .overlay{opacity:1}
 
-    /* Overlay */
-    .drawer-overlay{ position:fixed; inset:0; background:rgba(0,0,0,.45); opacity:0; transition:opacity .2s ease; z-index:1050; }
-    .drawer-overlay[hidden]{ display:none; }
-    body.nav-open nav[data-drawer]{ transform:translateX(0); }
-    body.nav-open{ overflow:hidden; }
-    body.nav-open .drawer-overlay{ opacity:1; }
-
-    /* Desktop nav + dropdowns */
-    @media (min-width: 992px){
-      .menu-toggle{ display:none; }
-      nav[data-drawer]{ position:static; transform:none; box-shadow:none; width:auto; padding:0; height:auto; overflow:visible; }
-      nav[data-drawer] .drawer-head{ display:none; }
-      nav[data-drawer] ul{ display:flex; gap:22px; margin:0; }
-      nav[data-drawer] li{ position:relative; border:0; }
-      nav[data-drawer] > ul > li > a{ padding:0; font-weight:700; }
-
-      /* Dropdown container */
-      .dropdown{ 
-        display:none; position:absolute; top:calc(100% + 14px); left:0; min-width:280px; background:#fff; border:1px solid var(--stroke);
-        box-shadow:0 12px 30px rgba(0,0,0,.14); padding:10px; border-radius:6px; 
+    /* Desktop nav */
+    @media(min-width:992px){
+      nav[data-drawer]{position:static;transform:none;box-shadow:none;width:auto;height:auto;padding:0;overflow:visible;border-right:0}
+      nav[data-drawer] .drawer-head{display:none}
+      nav[data-drawer] > ul{display:flex;gap:28px;align-items:stretch}
+      nav[data-drawer] > ul > li{position:relative}
+      nav[data-drawer] > ul > li > a{display:inline-block;font-weight:700;padding:18px 0;position:relative}
+      nav[data-drawer] > ul > li > a::after{
+        content:"";position:absolute;left:0;right:0;bottom:-1px;height:3px;background:var(--accent);
+        transform:scaleX(0);transform-origin:left;transition:transform .18s ease;
       }
-      .dropdown ul{ display:block; }
-      .dropdown li{ border:0; }
-      .dropdown a{ padding:8px 10px; color:#111; font-weight:600; white-space:nowrap; }
-      .has-children:hover > .dropdown,
-      .has-children:focus-within > .dropdown{ display:block; }
-      .sub-toggle{ display:none; } /* hide accordion buttons on desktop */
-      .drawer-overlay{ display:none !important; }
+      nav[data-drawer] > ul > li:hover > a::after,
+      nav[data-drawer] > ul > li:focus-within > a::after{transform:scaleX(1)}
+
+      .dropdown{
+        position:absolute;top:100%;left:0;display:none;background:#fff;border:1px solid var(--stroke);
+        border-radius:10px;box-shadow:0 12px 28px rgba(0,0,0,.14);margin-top:10px;padding:12px;min-width:520px;
+      }
+      .dropdown ul{columns:2;column-gap:24px;margin:0;padding:0}
+      .dropdown li{break-inside:avoid}
+      .dropdown a{display:block;padding:8px 10px;font-weight:600;color:#111;border-radius:6px}
+      .dropdown a:hover{background:#f7f7f7}
+      .has-children:hover>.dropdown,.has-children:focus-within>.dropdown{display:block}
+
+      .menu-toggle{display:none}
+      .overlay{display:none!important}
     }
 
-    /* Accessibility helpers */
-    .skip-link{ position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden; }
-    .skip-link:focus{ position:static; width:auto; height:auto; padding:6px 10px; background:#000; color:#fff; }
+    /* Mobile drilldown */
+    .panel-root{margin:0;padding:0}
+    .panel-root > li > a{display:block;padding:12px 4px;font-weight:700}
+    .child-panel{display:none}
+    .back-link{margin:6px 0 10px;padding:8px 0;background:transparent;border:0;color:var(--accent);font-weight:700;font-size:16px;text-align:left;cursor:pointer}
+    .child-title{margin:0 0 8px;font-size:18px;font-weight:700}
+    .child-list a{display:block;padding:10px 6px;border-radius:6px;color:#103a2b}
+    .child-list a:hover{background:#f5f7f6}
 
     /* Main/Footer */
-    main{ padding:24px 0; }
-    footer{ margin-top:40px; border-top:1px solid var(--stroke); padding:24px 0; color:#555; }
+    main{padding:24px 0}
+    footer{margin-top:40px;border-top:1px solid var(--stroke);padding:24px 0;color:#555}
   </style>
 </head>
 
 <body class="{{ page.class | default('') }}">
   <a class="skip-link" href="#content">Skip to content</a>
 
-  {# pull menu from _data/nav.json if present; fall back to defaults #}
-  {% set nav_items = nav or site.nav or [
-    { "url": "/", "title": "Home" },
-    { "url": "/articles/", "title": "Articles" },
-    { "url": "/about/", "title": "About" },
-    { "url": "/contact/", "title": "Contact" },
-    { "url": "/privacy-policy/", "title": "Privacy Policy" },
-    { "url": "/terms/", "title": "Terms" }
-  ] %}
+  {% set nav_items = nav or site.nav or _data.nav or [] %}
+  {% if not nav_items.length %}
+    {% set nav_items = [
+      { "title": "Articles", "url": "/articles/" },
+      { "title": "About", "url": "/about/" },
+      { "title": "Contact", "url": "/contact/" },
+      { "title": "Privacy Policy", "url": "/privacy-policy/" },
+      { "title": "Terms", "url": "/terms/" }
+    ] %}
+  {% endif %}
 
   <header class="site-header" role="banner">
-    <div class="container site-header__row">
+    <div class="container site-row">
       <a class="brand" href="{{ '/' | url }}">
         <img src="/assets/logo.svg" alt="Aging Dog Health" />
         <span>{{ site.name or 'Aging Dog Health' }}</span>
@@ -151,19 +148,17 @@
 
       <nav id="siteNav" data-drawer aria-label="Primary">
         <div class="drawer-head">
-          <strong>{{ site.name or 'Menu' }}</strong>
-          <button id="closeDrawer" class="menu-toggle" aria-label="Close menu">
-            <span class="bars" aria-hidden="true"></span>
-          </button>
+          <strong>Menu</strong>
+          <button id="closeDrawer" class="menu-toggle" aria-label="Close menu"><span class="bars" aria-hidden="true"></span></button>
         </div>
 
-        <ul>
+        <!-- ROOT list (desktop uses this; mobile uses as level 1) -->
+        <ul class="panel-root">
           {% for item in nav_items %}
             {% if item.children %}
               <li class="has-children">
-                <a href="{{ item.url | url }}">{{ item.title }}</a>
-                <button class="sub-toggle" aria-expanded="false" aria-controls="sub-{{ loop.index }}">Sub</button>
-                <div id="sub-{{ loop.index }}" class="dropdown">
+                <a href="{{ item.url | url }}" data-title="{{ item.title }}">{{ item.title }}</a>
+                <div class="dropdown" aria-hidden="true">
                   <ul>
                     {% for child in item.children %}
                       <li><a href="{{ child.url | url }}">{{ child.title }}</a></li>
@@ -176,6 +171,13 @@
             {% endif %}
           {% endfor %}
         </ul>
+
+        <!-- CHILD panel (mobile level 2) -->
+        <div id="childPanel" class="child-panel" hidden>
+          <button type="button" class="back-link" id="backLink">‹ Back</button>
+          <h3 class="child-title" id="childTitle"></h3>
+          <ul class="child-list"></ul>
+        </div>
       </nav>
 
       <button id="menuToggle" class="menu-toggle" aria-controls="siteNav" aria-expanded="false" aria-label="Open menu">
@@ -184,64 +186,73 @@
     </div>
   </header>
 
-  <div id="drawerOverlay" class="drawer-overlay" hidden></div>
+  <div id="overlay" class="overlay" hidden></div>
 
   <main id="content" class="container" tabindex="-1">
     {{ content | safe }}
-    {# simple ad placeholders you can style later
-    <div class="ad-slot ad-slot--leaderboard" aria-label="ad - leaderboard 728x90"></div>
-    <div class="ad-slot ad-slot--in-article" aria-label="ad - in-article 336x280"></div>
-    <aside class="ad-slot ad-slot--sidebar" aria-label="ad - sidebar 300x250"></aside>
-    #}
   </main>
 
   <footer role="contentinfo">
-    <div class="container">
-      <div>&copy; {{ (site.name or 'Aging Dog Health') }} {{ "now" | date("yyyy") }}</div>
+    <div class="container" style="display:flex;gap:16px;justify-content:space-between;align-items:center;flex-wrap:wrap;padding:18px 0;">
+      <div>&copy; {{ site.name or 'Aging Dog Health' }} {{ site.year }}</div>
+      <div><a href="/privacy-policy/">Privacy Policy</a> · <a href="/terms/">Terms</a> · <a href="/contact/">Contact</a></div>
     </div>
   </footer>
 
   <script>
-    (function () {
+    (function(){
       var body = document.body;
-      var nav = document.getElementById('siteNav');
+      var nav  = document.getElementById('siteNav');
       var toggle = document.getElementById('menuToggle');
       var closeBtn = document.getElementById('closeDrawer');
-      var overlay = document.getElementById('drawerOverlay');
+      var overlay = document.getElementById('overlay');
 
-      function openNav(){ body.classList.add('nav-open'); overlay.hidden = false; toggle.setAttribute('aria-expanded','true');
-        var firstLink = nav.querySelector('a'); if(firstLink) firstLink.focus({preventScroll:true}); }
-      function closeNav(){ body.classList.remove('nav-open'); overlay.hidden = true; toggle.setAttribute('aria-expanded','false');
-        toggle.focus({preventScroll:true}); }
-      function isOpen(){ return body.classList.contains('nav-open'); }
+      var rootList   = nav.querySelector('.panel-root');
+      var childPanel = document.getElementById('childPanel');
+      var backLink   = document.getElementById('backLink');
+      var childTitle = document.getElementById('childTitle');
+      var childList  = childPanel.querySelector('.child-list');
 
-      toggle.addEventListener('click', function(){ isOpen()? closeNav(): openNav(); });
+      function isDesktop(){ return window.matchMedia('(min-width: 992px)').matches; }
+      function openNav(){ body.classList.add('nav-open'); overlay.hidden=false; toggle.setAttribute('aria-expanded','true'); }
+      function closeNav(){ body.classList.remove('nav-open'); overlay.hidden=true; toggle.setAttribute('aria-expanded','false'); showRoot(); }
+      function showRoot(){ rootList.hidden=false; childPanel.hidden=true; }
+      function showChildren(title, anchors){
+        childTitle.textContent = title;
+        childList.innerHTML = '';
+        anchors.forEach(function(a){
+          var li = document.createElement('li');
+          var link = document.createElement('a');
+          link.href = a.href; link.textContent = a.textContent;
+          childList.appendChild(li).appendChild(link);
+        });
+        rootList.hidden = true; childPanel.hidden = false;
+      }
+
+      toggle.addEventListener('click', function(){ body.classList.contains('nav-open') ? closeNav() : openNav(); });
       if (closeBtn) closeBtn.addEventListener('click', closeNav);
       overlay.addEventListener('click', closeNav);
+      backLink.addEventListener('click', showRoot);
 
-      // Mobile submenu accordions
-      nav.querySelectorAll('.has-children .sub-toggle').forEach(function(btn){
-        btn.addEventListener('click', function(e){
+      // Mobile drilldown: tap top item with children → second view
+      nav.addEventListener('click', function(e){
+        var a = e.target.closest('a');
+        if(!a) return;
+        var li = a.closest('li.has-children');
+        if (!li) return; // simple links go through
+        if (!isDesktop() && body.classList.contains('nav-open')) {
+          var dropdown = li.querySelector('.dropdown'); if (!dropdown) return;
           e.preventDefault();
-          var li = btn.closest('.has-children');
-          var expanded = btn.getAttribute('aria-expanded') === 'true';
-          btn.setAttribute('aria-expanded', (!expanded).toString());
-          li.classList.toggle('open', !expanded);
-        });
-      });
-
-      // Esc to close; keep focus trap when drawer open
-      document.addEventListener('keydown', function(e){
-        if (e.key === 'Escape' && isOpen()) { e.preventDefault(); closeNav(); }
-        if (e.key === 'Tab' && isOpen()) {
-          var focusables = nav.querySelectorAll('a, button');
-          if(!focusables.length) return;
-          var first = focusables[0], last = focusables[focusables.length - 1];
-          var active = document.activeElement;
-          if (e.shiftKey && active === first) { e.preventDefault(); last.focus(); }
-          else if (!e.shiftKey && active === last) { e.preventDefault(); first.focus(); }
+          var anchors = Array.from(dropdown.querySelectorAll('a'));
+          showChildren(a.getAttribute('data-title') || a.textContent.trim(), anchors);
         }
       });
+
+      document.addEventListener('keydown', function(e){
+        if (e.key === 'Escape' && body.classList.contains('nav-open')) closeNav();
+      });
+
+      window.addEventListener('resize', function(){ if (isDesktop()) { showRoot(); } });
     })();
   </script>
 </body>
